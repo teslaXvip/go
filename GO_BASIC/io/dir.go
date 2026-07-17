@@ -21,4 +21,10 @@ func CreateFile(fileName string) {
 		fmt.Printf("file name %s\n", info.Name())
 		fmt.Printf("size %dB\n", info.Size())
 	}
+
+	os.MkdirAll("../data/sys/a/b/c", os.ModePerm)
+
+	os.Rename("../data/sys/a", "../data/sys/p")
+
+	os.Rename("../data/sys/p/b/c", "../data/sys/p/c") // 把c目录移动p目录下面
 }
