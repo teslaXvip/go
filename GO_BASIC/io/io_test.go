@@ -39,3 +39,7 @@ func TestCreateFile(t *testing.T) {
 func TestWalkDir(t *testing.T) {
 	io.WalkDir("../data")
 }
+
+func TestSplitFile(t *testing.T) {
+	io.SplitFile("../img/懒大王.jpg", "../img/图像分割", 4)
+}
