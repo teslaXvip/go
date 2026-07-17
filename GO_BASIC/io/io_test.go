@@ -35,3 +35,7 @@ func TestBufferedFileWriter(t *testing.T) {
 func TestCreateFile(t *testing.T) {
 	io.CreateFile("../data/poem.txt")
 }
+
+func TestWalkDir(t *testing.T) {
+	io.WalkDir("../data")
+}

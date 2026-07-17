@@ -2,7 +2,9 @@ package io
 
 import (
 	"fmt"
+	"io/fs"
 	"os"
+	"path/filepath"
 )
 
 func CreateFile(fileName string) {
@@ -27,4 +29,21 @@ func CreateFile(fileName string) {
 	os.Rename("../data/sys/a", "../data/sys/p")
 
 	os.Rename("../data/sys/p/b/c", "../data/sys/p/c") // 把c目录移动p目录下面
+}
+
+func WalkDir(path string) error {
+	filepath.Walk(path, func(subPath string, info fs.FileInfo, err error) error {
+		if err != nil {
+			return err
+		}
+
+		if info.Mode().IsDir() && path != subPath {
+			fmt.Printf("path is dir %s\n", subPath)
+		} else if info.Mode().IsRegular() {
+			fmt.Printf("path is file %s basename %s\n", subPath, info.Name())
+		}
+		return nil
+	})
+
+	return nil
 }
