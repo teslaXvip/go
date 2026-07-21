@@ -43,3 +43,7 @@ func TestWalkDir(t *testing.T) {
 func TestSplitFile(t *testing.T) {
 	io.SplitFile("../img/懒大王.jpg", "../img/图像分割", 4)
 }
+
+func TestMergeFile(t *testing.T) {
+	io.MergeFile("../img/图像分割", "../img/图像合并.jpg")
+}
