@@ -1,6 +1,7 @@
 package io_test
 
 import (
+	"encoding/json"
 	"fmt"
 	"go_basic/io"
 	"testing"
@@ -54,4 +55,47 @@ func TestCompress(t *testing.T) {
 
 func TestDecompress(t *testing.T) {
 	io.Decompress("../img/懒大王2.jpg.zip", "../data/懒大王.jpg")
+}
+
+func TestUserMarshal(t *testing.T) {
+	birthTime, _ := time.ParseInLocation(io.MyDateFormat, "2000-01-01", time.Local)
+	u := io.User{
+		Name:  "张三",
+		Birth: io.MyDate(birthTime),
+	}
+
+	data, err := json.MarshalIndent(u, "", "  ")
+	if err != nil {
+		t.Fatalf("MarshalIndent failed: %v", err)
+	}
+	fmt.Println("序列化结果：")
+	fmt.Println(string(data))
+
+	want := `{
+  "name": "张三",
+  "birth": "2000-01-01"
+}`
+	if string(data) != want {
+		t.Errorf("MarshalIndent got %s, want %s", string(data), want)
+	}
+}
+
+func TestUserUnmarshal(t *testing.T) {
+	data := []byte(`{
+  "name": "张三",
+  "birth": "2000-01-01"
+}`)
+
+	var u io.User
+	err := json.Unmarshal(data, &u)
+	if err != nil {
+		t.Fatalf("Unmarshal failed: %v", err)
+	}
+	got := time.Time(u.Birth).Format(io.MyDateFormat)
+	fmt.Println("反序列化后birth：", got)
+
+	want := "2000-01-01"
+	if got != want {
+		t.Errorf("Unmarshal birth got %s, want %s", got, want)
+	}
 }

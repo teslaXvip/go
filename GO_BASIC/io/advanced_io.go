@@ -8,22 +8,22 @@ import (
 	"strings"
 )
 
-func main() {
-	fmt.Println("===== LimitReader 测试 =====")
-	limitReader()
+// func main() {
+// 	fmt.Println("===== LimitReader 测试 =====")
+// 	limitReader()
 
-	fmt.Println("\n===== MultiReader 测试 =====")
-	multiReader()
+// 	fmt.Println("\n===== MultiReader 测试 =====")
+// 	multiReader()
 
-	fmt.Println("\n===== MultiWriter 测试 =====")
-	multiWriter()
+// 	fmt.Println("\n===== MultiWriter 测试 =====")
+// 	multiWriter()
 
-	fmt.Println("\n===== TeeReader 测试 =====")
-	teeReader()
+// 	fmt.Println("\n===== TeeReader 测试 =====")
+// 	teeReader()
 
-	fmt.Println("\n===== PipeIO 测试 =====")
-	pipeIO()
-}
+// 	fmt.Println("\n===== PipeIO 测试 =====")
+// 	pipeIO()
+// }
 
 // LimitReader：限制最多读取N字节数据
 func limitReader() {
