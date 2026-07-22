@@ -99,3 +99,7 @@ func TestUserUnmarshal(t *testing.T) {
 		t.Errorf("Unmarshal birth got %s, want %s", got, want)
 	}
 }
+
+func TestSysCall(t *testing.T) {
+	io.SysCall()
+}
