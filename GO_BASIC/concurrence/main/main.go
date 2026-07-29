@@ -12,6 +12,7 @@ func main() {
 	// WLockExclusion()
 	// RLockExclusion()
 	// concurrence.CollectionSafety()
-	concurrence.CutDownLatch()
+	// concurrence.CutDownLatch()
 	// concurrence.Broadcast()
+	concurrence.DealMassFile("data/biz_log")
 }
