@@ -14,5 +14,6 @@ func main() {
 	// concurrence.CollectionSafety()
 	// concurrence.CutDownLatch()
 	// concurrence.Broadcast()
-	concurrence.DealMassFile("data/biz_log")
+	// concurrence.DealMassFile("data/biz_log")
+	concurrence.ListenMultiWay()
 }
