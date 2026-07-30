@@ -8,3 +8,7 @@ import (
 func TestTcpClient(t *testing.T) {
 	client.TcpClient()
 }
+
+func TestUdpClient(t *testing.T) {
+	client.UdpClient()
+}
