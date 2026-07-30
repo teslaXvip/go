@@ -23,6 +23,14 @@ func sendTcpServer(conn net.Conn) {
 func TcpClient() {
 	conn := connect2TcpServer("127.0.0.1:5678")
 	sendTcpServer(conn)
+
+}
+
+func TcpLongConnection() {
+	conn := connect2TcpServer("127.0.0.1:5678")
+	for range 300 {
+		sendTcpServer(conn)
+	}
 	conn.Close()
 	log.Println("close connection")
 }

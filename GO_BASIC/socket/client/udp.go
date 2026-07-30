@@ -28,7 +28,17 @@ func sendUdpServer(conn net.Conn) {
 }
 
 func UdpClient() {
-	// 可补充调用逻辑：
 	conn := connect2UdpServer("127.0.0.1:5678")
 	sendUdpServer(conn)
+	conn.Close()
+	log.Println("close connection")
+}
+
+func UdpLongConnection() {
+	conn := connect2UdpServer("127.0.0.1:5678")
+	for range 3 {
+		sendUdpServer(conn)
+	}
+	conn.Close()
+	log.Println("close connection")
 }

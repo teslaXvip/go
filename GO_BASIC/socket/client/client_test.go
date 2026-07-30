@@ -12,3 +12,11 @@ func TestTcpClient(t *testing.T) {
 func TestUdpClient(t *testing.T) {
 	client.UdpClient()
 }
+
+func TestTcpLongConnection(t *testing.T) {
+	client.TcpLongConnection()
+}
+
+func TestUdpLongConnection(t *testing.T) {
+	client.UdpLongConnection()
+}
