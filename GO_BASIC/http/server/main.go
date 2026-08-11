@@ -5,7 +5,9 @@ import (
 	myHttp "go_basic/http"
 	"io"
 	"net/http"
+	"strconv"
 	"strings"
+	"time"
 )
 
 func HttpObservation(w http.ResponseWriter, r *http.Request) {
@@ -43,10 +45,20 @@ func Get(w http.ResponseWriter, r *http.Request) {
 func HugeBody(w http.ResponseWriter, r *http.Request) {
 	line := []byte("Heavy is the head who wears the crown.\n")
 	const R = 10
+	totalSzie := R * len(line)
+	w.Header().Add("content-length", strconv.Itoa(totalSzie))
+	flusher, ok := w.(http.Flusher)
+	if !ok {
+		http.Error(w, "不支持flusher", http.StatusInternalServerError)
+		return
+	}
 	for i := range R {
 		if _, err := w.Write(line); err != nil {
 			fmt.Printf("%d send error :%s\n", i, err)
 			break
+		} else {
+			flusher.Flush()
+			time.Sleep(time.Second)
 		}
 	}
 	fmt.Println(strings.Repeat("*", 60))

@@ -7,6 +7,7 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"strconv"
 	"strings"
 )
 
@@ -59,18 +60,27 @@ func HugeBody() {
 	if resp, err := http.Get("http://127.0.0.1:5678/stream"); err != nil {
 		panic(err)
 	} else {
-		reader := bufio.NewReader(resp.Body)
-		for {
-			if bs, err := reader.ReadBytes('\n'); err == nil {
-				fmt.Print(string(bs))
-			} else {
-				if err == io.EOF {
-					if len(bs) > 0 {
-						fmt.Println(string(bs))
+		headerKey := http.CanonicalHeaderKey("Content-Length")
+		fmt.Println("headerKey", headerKey)
+		if ls, exists := resp.Header[headerKey]; exists {
+			if l, err := strconv.Atoi(ls[0]); err == nil {
+				haveRead := 0
+				reader := bufio.NewReader(resp.Body)
+				for {
+					if bs, err := reader.ReadBytes('\n'); err == nil {
+						haveRead += len(bs)
+						progress := float64(haveRead) / float64(l)
+						fmt.Printf("进度 %.2f%% ,内容 %s", progress*100, string(bs))
+					} else {
+						if err == io.EOF {
+							if len(bs) > 0 {
+								fmt.Println(string(bs))
+							}
+							break
+						} else {
+							fmt.Printf("read response body error: %s\n", err)
+						}
 					}
-					break
-				} else {
-					fmt.Printf("read response body error: %s\n", err)
 				}
 			}
 		}
