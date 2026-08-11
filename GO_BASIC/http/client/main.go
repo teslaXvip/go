@@ -2,9 +2,11 @@ package main
 
 import (
 	"fmt"
+	myHttp "go_basic/http"
 	"io"
 	"net/http"
 	"os"
+	"strings"
 )
 
 func HttpOvservation() {
@@ -33,6 +35,25 @@ func HttpOvservation() {
 	resp.Body.Close()
 }
 
+func Get() {
+	fmt.Println(strings.Repeat("*", 30) + "GET" + strings.Repeat("*", 30))
+	resp, err := http.Get("http://127.0.0.1:5678/get?" + myHttp.EncodeUrlParams(map[string]string{
+		"name": "zx vip", "age": "18",
+	}))
+	if err != nil {
+		panic(err)
+	} else {
+		defer resp.Body.Close()
+		fmt.Printf("response status: %s\n", resp.Status)
+		fmt.Println("response body:")
+		if body, err := io.ReadAll(resp.Body); err == nil {
+			fmt.Println(string(body))
+		}
+		os.Stdout.WriteString("\n\n")
+	}
+}
+
 func main() {
-	HttpOvservation()
+	// HttpOvservation()
+	Get()
 }

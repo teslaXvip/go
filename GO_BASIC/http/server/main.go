@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	myHttp "go_basic/http"
 	"io"
 	"net/http"
 )
@@ -31,8 +32,16 @@ func HttpObservation(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "hello girl\n")
 }
 
+func Get(w http.ResponseWriter, r *http.Request) {
+	fmt.Println(r.URL)
+	params := myHttp.ParseUrlParams(r.URL.RawQuery)
+	fmt.Fprintf(w, "your name is %s , age is %s \n", params["name"], params["age"])
+
+}
+
 func main() {
 	http.HandleFunc("/obs", HttpObservation)
+	http.HandleFunc("/get", Get)
 	if err := http.ListenAndServe("127.0.0.1:5678", nil); err != nil {
 		panic(err)
 	}
