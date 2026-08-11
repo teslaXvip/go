@@ -5,6 +5,7 @@ import (
 	myHttp "go_basic/http"
 	"io"
 	"net/http"
+	"strings"
 )
 
 func HttpObservation(w http.ResponseWriter, r *http.Request) {
@@ -39,9 +40,23 @@ func Get(w http.ResponseWriter, r *http.Request) {
 
 }
 
+func HugeBody(w http.ResponseWriter, r *http.Request) {
+	line := []byte("Heavy is the head who wears the crown.\n")
+	const R = 10
+	for i := range R {
+		if _, err := w.Write(line); err != nil {
+			fmt.Printf("%d send error :%s\n", i, err)
+			break
+		}
+	}
+	fmt.Println(strings.Repeat("*", 60))
+}
+
 func main() {
 	http.HandleFunc("/obs", HttpObservation)
 	http.HandleFunc("/get", Get)
+	http.HandleFunc("/stream", HugeBody)
+
 	if err := http.ListenAndServe("127.0.0.1:5678", nil); err != nil {
 		panic(err)
 	}

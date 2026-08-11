@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	myHttp "go_basic/http"
 	"io"
@@ -53,7 +54,31 @@ func Get() {
 	}
 }
 
+func HugeBody() {
+	fmt.Println(strings.Repeat("*", 30) + "GET HUGE BODY" + strings.Repeat("*", 30))
+	if resp, err := http.Get("http://127.0.0.1:5678/stream"); err != nil {
+		panic(err)
+	} else {
+		reader := bufio.NewReader(resp.Body)
+		for {
+			if bs, err := reader.ReadBytes('\n'); err == nil {
+				fmt.Print(string(bs))
+			} else {
+				if err == io.EOF {
+					if len(bs) > 0 {
+						fmt.Println(string(bs))
+					}
+					break
+				} else {
+					fmt.Printf("read response body error: %s\n", err)
+				}
+			}
+		}
+	}
+}
+
 func main() {
 	// HttpOvservation()
-	Get()
+	// Get()
+	HugeBody()
 }
