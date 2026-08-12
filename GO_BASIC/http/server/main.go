@@ -93,11 +93,37 @@ func Post(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func Cookie(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("request header:")
+	for key, value := range r.Header {
+		fmt.Println(key, value)
+	}
+
+	// 其实可以直接通过r.Cookies()获得*http.Cookie，没必要自己解析
+	if values, exists := r.Header["Cookie"]; exists {
+		cookies, _ := http.ParseCookie(values[0]) // 多个request cookie全在values[0]里
+		fmt.Println("request cookie:")
+		for _, cookie := range cookies {
+			fmt.Printf("%s: %s\n", cookie.Name, cookie.Value)
+		}
+		fmt.Println(strings.Repeat("*", 60))
+	}
+
+	// Set‑Cookie
+	expiration := time.Now().Add(30 * 24 * time.Hour)
+	cookie1 := http.Cookie{Name: "csrftoken", Value: "abcd", Expires: expiration, Domain: "localhost", Path: "/"}
+	cookie2 := http.Cookie{Name: "jwt", Value: "1234", Expires: expiration, Domain: "localhost", Path: "/"}
+	// 可以返回多个cookie
+	http.SetCookie(w, &cookie1)
+	http.SetCookie(w, &cookie2)
+}
+
 func main() {
 	http.HandleFunc("/obs", HttpObservation)
 	http.HandleFunc("/get", Get)
 	http.HandleFunc("/stream", HugeBody)
 	http.HandleFunc("/post", Post)
+	http.HandleFunc("/cookie", Cookie)
 
 	if err := http.ListenAndServe("127.0.0.1:5678", nil); err != nil {
 		panic(err)

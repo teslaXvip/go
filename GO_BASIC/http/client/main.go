@@ -12,6 +12,7 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"time"
 )
 
 func HttpOvservation() {
@@ -113,9 +114,65 @@ func Post() {
 	}
 }
 
+func Cookie() {
+	fmt.Println(strings.Repeat("*", 30) + "Cookie" + strings.Repeat("*", 30))
+	request, err := http.NewRequest(http.MethodGet, "http://127.0.0.1:5678/cookie", nil)
+	if err != nil {
+		panic(err)
+	}
+	request.Header.Add("user-agent", "Mozilla/5.0(x64)")
+	request.Header.Add("user-role", "vip")
+
+	request.AddCookie(&http.Cookie{
+		Name:   "auth",
+		Value:  "pass",
+		Domain: "localhost",
+		Path:   "/",
+	})
+
+	request.AddCookie(&http.Cookie{
+		Name:  "money",
+		Value: "100",
+	})
+
+	request.AddCookie(&http.Cookie{
+		Name:  "money",
+		Value: "800",
+	})
+
+	client := &http.Client{
+		Timeout: 500 * time.Millisecond,
+	}
+
+	if resp, err := client.Do(request); err != nil {
+		fmt.Println(err)
+	} else {
+		defer resp.Body.Close()
+		fmt.Println("response header:")
+		for k, v := range resp.Header {
+			fmt.Println(k, v)
+		}
+
+		// 其实可以直接通过resp.Cookies()获得*http.Cookie，没必要自己解析
+		if values, exists := resp.Header["Set-Cookie"]; exists {
+			for _, value := range values { // 一个value对应一个response cookie
+				cookie, _ := http.ParseSetCookie(value)
+				fmt.Println("Name:", cookie.Name)
+				fmt.Println("Value:", cookie.Value)
+				fmt.Println("Domain:", cookie.Domain)
+				fmt.Println("MaxAge:", cookie.MaxAge)
+				fmt.Println(strings.Repeat("-", 50))
+			}
+		}
+
+		os.Stdout.WriteString("\n\n")
+	}
+}
+
 func main() {
 	// HttpOvservation()
 	// Get()
 	// HugeBody()
-	Post()
+	// Post()
+	Cookie()
 }
