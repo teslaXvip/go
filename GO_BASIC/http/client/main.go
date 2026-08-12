@@ -2,10 +2,13 @@ package main
 
 import (
 	"bufio"
+	"bytes"
+	"encoding/json"
 	"fmt"
 	myHttp "go_basic/http"
 	"io"
 	"net/http"
+	"net/url"
 	"os"
 	"strconv"
 	"strings"
@@ -87,8 +90,32 @@ func HugeBody() {
 	}
 }
 
+func Post() {
+	bs, _ := json.Marshal(map[string]string{"name": "zx vv", "age": "18"})
+	if resp, err := http.Post("http://127.0.0.1:5678/post", "application/json", bytes.NewReader(bs)); err != nil {
+		panic(err)
+	} else {
+		defer resp.Body.Close()
+		fmt.Printf("response status: %s\n", resp.Status)
+		fmt.Println("response body:")
+		io.Copy(os.Stdout, resp.Body)
+		os.Stdout.WriteString("\n\n")
+	}
+
+	if resp, err := http.PostForm("http://127.0.0.1:5678/post", url.Values{"name": []string{"zx vvip"}, "age": []string{"20"}}); err != nil {
+		panic(err)
+	} else {
+		defer resp.Body.Close()
+		fmt.Printf("response status: %s\n", resp.Status)
+		fmt.Println("response body:")
+		io.Copy(os.Stdout, resp.Body)
+		os.Stdout.WriteString("\n\n")
+	}
+}
+
 func main() {
 	// HttpOvservation()
 	// Get()
-	HugeBody()
+	// HugeBody()
+	Post()
 }
