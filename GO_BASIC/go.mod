@@ -2,7 +2,10 @@ module go_basic
 
 go 1.26.2
 
-require github.com/spf13/viper v1.21.0
+require (
+	github.com/spf13/viper v1.21.0
+	google.golang.org/protobuf v1.36.12
+)
 
 require (
 	github.com/fsnotify/fsnotify v1.9.0 // indirect
