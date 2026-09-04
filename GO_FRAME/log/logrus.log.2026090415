@@ -1,0 +1,4 @@
+time="2026-09-04 15:47:13.265" level=info msg="this is info log" func=go_frame/io_test.TestLogrus file="D:/go/GO_FRAME/io/logrus_test.go:14" age=18 name=dqq
+time="2026-09-04 15:47:13.278" level=warning msg="this is warn log, float=3.140" func=go_frame/io_test.TestLogrus file="D:/go/GO_FRAME/io/logrus_test.go:15" age=18 name=dqq
+time="2026-09-04 15:47:13.279" level=error msg="this is error log1this is error log2" func=go_frame/io_test.TestLogrus file="D:/go/GO_FRAME/io/logrus_test.go:16"
+time="2026-09-04 15:47:13.279" level=panic msg="this is panic log" func=go_frame/io_test.TestLogrus file="D:/go/GO_FRAME/io/logrus_test.go:23"
