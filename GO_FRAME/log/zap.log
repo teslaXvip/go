@@ -1,0 +1,14 @@
+2026-09-04T16:23:13.382+0800	[34mINFO[0m	io/zap_test.go:27	hello	{"age": 18}
+2026-09-04T16:23:13.392+0800	[31mERROR[0m	io/zap_test.go:28	hello	{"china": {"age": 18}}
+go_frame/io_test.TestZap1
+	D:/go/GO_FRAME/io/zap_test.go:28
+testing.tRunner
+	C:/Program Files/Go/src/testing/testing.go:2036
+2026-09-04T16:23:13.392+0800	[34mINFO[0m	io/zap_test.go:31	pi is 3.140000
+2026-09-04 16:24:58.687	[34mINFO[0m	io/zap_test.go:27	hello	{"age": 18}
+2026-09-04 16:24:58.696	[31mERROR[0m	io/zap_test.go:28	hello	{"china": {"age": 18}}
+go_frame/io_test.TestZap1
+	D:/go/GO_FRAME/io/zap_test.go:28
+testing.tRunner
+	C:/Program Files/Go/src/testing/testing.go:2036
+2026-09-04 16:24:58.696	[34mINFO[0m	io/zap_test.go:31	pi is 3.140000
