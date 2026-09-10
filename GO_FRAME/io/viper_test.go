@@ -2,8 +2,9 @@ package io_test
 
 import (
 	"fmt"
-	"go_frame/io"
 	"testing"
+
+	"github.com/teslaXvip/go/go_frame/io"
 )
 
 func TestViper(t *testing.T) {

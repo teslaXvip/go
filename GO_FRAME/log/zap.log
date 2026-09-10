@@ -12,3 +12,38 @@ go_frame/io_test.TestZap1
 testing.tRunner
 	C:/Program Files/Go/src/testing/testing.go:2036
 2026-09-04 16:24:58.696	[34mINFO[0m	io/zap_test.go:31	pi is 3.140000
+2026-09-10 22:15:01.831	[34mINFO[0m	io/zap_test.go:27	hello	{"dqq": {"biz": "search", "age": 18}}
+2026-09-10 22:15:01.831	[31mERROR[0m	io/zap_test.go:28	hello	{"dqq": {"biz": "search", "china": {"age": 18}}}
+go_frame/io_test.TestZap1
+	D:/go/GO_FRAME/io/zap_test.go:28
+testing.tRunner
+	C:/Program Files/Go/src/testing/testing.go:2036
+2026-09-10 22:15:01.831	[34mINFO[0m	io/zap_test.go:31	pi is 3.140000	{"dqq": {"biz": "search"}}
+2026-09-10 22:16:49.103	[34mINFO[0m	io/zap_test.go:27	hello	{"dqq": {"biz": "search", "age": 18}}
+2026-09-10 22:16:49.103	[31mERROR[0m	io/zap_test.go:28	hello	{"dqq": {"biz": "search", "china": {"age": 18}}}
+github.com/dqq/go_frame/io_test.TestZap1
+	D:/go/GO_FRAME/io/zap_test.go:28
+testing.tRunner
+	C:/Program Files/Go/src/testing/testing.go:2036
+2026-09-10 22:16:49.103	[34mINFO[0m	io/zap_test.go:31	pi is 3.140000	{"dqq": {"biz": "search"}}
+2026-09-10 22:36:42.546	[34mINFO[0m	io/zap_test.go:27	hello	{"dqq": {"biz": "search", "age": 18}}
+2026-09-10 22:36:42.546	[31mERROR[0m	io/zap_test.go:28	hello	{"dqq": {"biz": "search", "china": {"age": 18}}}
+github.com/teslaXvip/go/go_frame/io_test.TestZap1
+	D:/go/GO_FRAME/io/zap_test.go:28
+testing.tRunner
+	C:/Program Files/Go/src/testing/testing.go:2036
+2026-09-10 22:36:42.546	[34mINFO[0m	io/zap_test.go:31	pi is 3.140000	{"dqq": {"biz": "search"}}
+2026-09-10 22:40:07.671	[34mINFO[0m	io/zap_test.go:28	hello	{"dqq": {"biz": "search", "age": 18}}
+2026-09-10 22:40:07.671	[31mERROR[0m	io/zap_test.go:29	hello	{"dqq": {"biz": "search", "china": {"age": 18}}}
+github.com/teslaXvip/go/go_frame/io_test.TestZap1
+	D:/go/GO_FRAME/io/zap_test.go:29
+testing.tRunner
+	C:/Program Files/Go/src/testing/testing.go:2036
+2026-09-10 22:40:07.671	[34mINFO[0m	io/zap_test.go:32	pi is 3.140000	{"dqq": {"biz": "search"}}
+2026-09-10 22:41:46.271	[34mINFO[0m	io/zap_test.go:28	hello	{"dqq": {"biz": "search", "age": 18}}
+2026-09-10 22:41:46.271	[31mERROR[0m	io/zap_test.go:29	hello	{"dqq": {"biz": "search", "china": {"age": 18}}}
+github.com/teslaXvip/go/go_frame/io_test.TestZap1
+	D:/go/GO_FRAME/io/zap_test.go:29
+testing.tRunner
+	C:/Program Files/Go/src/testing/testing.go:2036
+2026-09-10 22:41:46.271	[34mINFO[0m	io/zap_test.go:32	pi is 3.140000	{"dqq": {"biz": "search"}}

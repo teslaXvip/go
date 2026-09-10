@@ -1,7 +1,7 @@
 package main
 
 import (
-	"go_frame/io"
+	"github.com/teslaXvip/go/go_frame/io"
 )
 
 func main() {

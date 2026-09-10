@@ -2,9 +2,10 @@ package distributed_test
 
 import (
 	"context"
-	"go_frame/distributed"
 	"log/slog"
 	"testing"
+
+	"github.com/teslaXvip/go/go_frame/distributed"
 
 	"github.com/redis/go-redis/v9"
 )

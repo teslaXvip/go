@@ -1,0 +1,20 @@
+time="2026-09-10 22:15:01.815" level=info msg="this is info log" func=go_frame/io_test.TestLogrus file="D:/go/GO_FRAME/io/logrus_test.go:14" age=18 name=dqq
+time="2026-09-10 22:15:01.829" level=warning msg="this is warn log, float=3.140" func=go_frame/io_test.TestLogrus file="D:/go/GO_FRAME/io/logrus_test.go:15" age=18 name=dqq
+time="2026-09-10 22:15:01.829" level=error msg="this is error log1this is error log2" func=go_frame/io_test.TestLogrus file="D:/go/GO_FRAME/io/logrus_test.go:16"
+time="2026-09-10 22:15:01.829" level=panic msg="this is panic log" func=go_frame/io_test.TestLogrus file="D:/go/GO_FRAME/io/logrus_test.go:23"
+time="2026-09-10 22:16:49.086" level=info msg="this is info log" func=github.com/dqq/go_frame/io_test.TestLogrus file="D:/go/GO_FRAME/io/logrus_test.go:14" age=18 name=dqq
+time="2026-09-10 22:16:49.100" level=warning msg="this is warn log, float=3.140" func=github.com/dqq/go_frame/io_test.TestLogrus file="D:/go/GO_FRAME/io/logrus_test.go:15" age=18 name=dqq
+time="2026-09-10 22:16:49.100" level=error msg="this is error log1this is error log2" func=github.com/dqq/go_frame/io_test.TestLogrus file="D:/go/GO_FRAME/io/logrus_test.go:16"
+time="2026-09-10 22:16:49.101" level=panic msg="this is panic log" func=github.com/dqq/go_frame/io_test.TestLogrus file="D:/go/GO_FRAME/io/logrus_test.go:23"
+time="2026-09-10 22:36:42.531" level=info msg="this is info log" func=github.com/teslaXvip/go/go_frame/io_test.TestLogrus file="D:/go/GO_FRAME/io/logrus_test.go:14" age=18 name=dqq
+time="2026-09-10 22:36:42.543" level=warning msg="this is warn log, float=3.140" func=github.com/teslaXvip/go/go_frame/io_test.TestLogrus file="D:/go/GO_FRAME/io/logrus_test.go:15" age=18 name=dqq
+time="2026-09-10 22:36:42.543" level=error msg="this is error log1this is error log2" func=github.com/teslaXvip/go/go_frame/io_test.TestLogrus file="D:/go/GO_FRAME/io/logrus_test.go:16"
+time="2026-09-10 22:36:42.543" level=panic msg="this is panic log" func=github.com/teslaXvip/go/go_frame/io_test.TestLogrus file="D:/go/GO_FRAME/io/logrus_test.go:23"
+time="2026-09-10 22:40:07.656" level=info msg="this is info log" func=github.com/teslaXvip/go/go_frame/io_test.TestLogrus file="D:/go/GO_FRAME/io/logrus_test.go:15" age=18 name=dqq
+time="2026-09-10 22:40:07.669" level=warning msg="this is warn log, float=3.140" func=github.com/teslaXvip/go/go_frame/io_test.TestLogrus file="D:/go/GO_FRAME/io/logrus_test.go:16" age=18 name=dqq
+time="2026-09-10 22:40:07.669" level=error msg="this is error log1this is error log2" func=github.com/teslaXvip/go/go_frame/io_test.TestLogrus file="D:/go/GO_FRAME/io/logrus_test.go:17"
+time="2026-09-10 22:40:07.669" level=panic msg="this is panic log" func=github.com/teslaXvip/go/go_frame/io_test.TestLogrus file="D:/go/GO_FRAME/io/logrus_test.go:24"
+time="2026-09-10 22:41:46.257" level=info msg="this is info log" func=github.com/teslaXvip/go/go_frame/io_test.TestLogrus file="D:/go/GO_FRAME/io/logrus_test.go:15" age=18 name=dqq
+time="2026-09-10 22:41:46.269" level=warning msg="this is warn log, float=3.140" func=github.com/teslaXvip/go/go_frame/io_test.TestLogrus file="D:/go/GO_FRAME/io/logrus_test.go:16" age=18 name=dqq
+time="2026-09-10 22:41:46.269" level=error msg="this is error log1this is error log2" func=github.com/teslaXvip/go/go_frame/io_test.TestLogrus file="D:/go/GO_FRAME/io/logrus_test.go:17"
+time="2026-09-10 22:41:46.269" level=panic msg="this is panic log" func=github.com/teslaXvip/go/go_frame/io_test.TestLogrus file="D:/go/GO_FRAME/io/logrus_test.go:24"

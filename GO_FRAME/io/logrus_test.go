@@ -1,8 +1,9 @@
 package io_test
 
 import (
-	"go_frame/io"
 	"testing"
+
+	"github.com/teslaXvip/go/go_frame/io"
 
 	"github.com/sirupsen/logrus"
 )
