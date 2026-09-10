@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+	"os"
 	"strconv"
 	"time"
 
@@ -186,4 +187,63 @@ func HashtableValue(ctx context.Context, client *redis.Client) {
 	}
 
 	client.Del(ctx, "学生1")
+}
+
+// 遍历Key。直接用keys命令是全库遍历，redis是单线程的，会阻塞很长时间。
+// SCAN cursor [MATCH pattern] [COUNT count]。scan命令注意事项：
+// 1、当游标返回0时，表示迭代结束。第一次 Scan 时指定游标为 0，表示开启新的一轮迭代。cursor是HashTable槽位里的值，并不是递增的。
+//
+// 2、count表示一次遍历多少个key，这些key可能全部不能匹配patten。count设为10000比较合适，count越大总耗时越短，但是单次查询阻塞的时间越长。
+//
+// 3、返回的结果可能会有重复，需要客户端去重复，这点非常重要。
+//
+// 4、遍历的过程中如果有数据修改，改动后的数据能不能遍历到是不确定的。
+//
+// 5、单次返回的结果是空的并不意味着遍历结束，而要看返回的游标值是否为0。
+func Scan(ctx context.Context, client *redis.Client) {
+	if client == nil {
+		log.Printf("connect redis failed")
+		os.Exit(1)
+	}
+
+	const (
+		MID = "_dqq_"
+	)
+	for i := 0; i < 10; i++ {
+		//构造10个key,都匹配模式*_dqq_*
+		key := strconv.Itoa(i) + MID + strconv.Itoa(i)
+		err := client.Set(ctx, key, "1", 0).Err()
+		if err != nil {
+			fmt.Println(err)
+		}
+	}
+
+	// 删除创建的那10个key
+	// defer func() {
+	// 	for i := 0; i < 10; i++ {
+	// 		key := strconv.Itoa(i) + MID + strconv.Itoa(i)
+	// 		client.Del(ctx, key)
+	// 	}
+	// }()
+
+	const COUNT = 100 //遍历的批次大小，建议设为10000
+	var cursor uint64 = 0
+	dup := make(map[string]struct{}, COUNT) //对遍历出来的key排重
+	for {
+		// 取出所有match上patten的key。如果match参数设为空，则是遍历库里的所有key
+		keys, c, err := client.Scan(ctx, cursor, "*"+MID+"*", COUNT).Result()
+		if err != nil {
+			fmt.Println(err)
+			break
+		}
+		fmt.Printf("cursor %d keys count %d\n", c, len(keys))
+		for _, key := range keys {
+			dup[key] = struct{}{}
+		}
+		if c == 0 {
+			break
+		}
+		cursor = c //本次scan返回的cursor，作为下一次scan使用的cursor
+	}
+	fmt.Println("total", len(dup))
 }
