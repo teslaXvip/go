@@ -13,9 +13,9 @@ import (
 // init：包初始化函数，执行go test的时候会优先执行init()
 func init() {
 	// 初始化日志，注意测试文件的相对路径！
-	util.InitSlog("../../../../log/post.log")
+	util.InitSlog("../../../log/post.log")
 	// 连接Post数据库：配置目录、配置key、配置文件类型、日志目录
-	database.ConnectPostDB("../../../conf", "db", util.YAML, "../../../../log")
+	database.ConnectPostDB("../../conf", "db", util.YAML, "../../../log")
 }
 
 // hash：对密码做MD5哈希，返回32位16进制字符串

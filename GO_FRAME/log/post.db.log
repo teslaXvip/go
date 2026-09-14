@@ -1,0 +1,15 @@
+
+2026/09/14 10:17:21 D:/go/GO_FRAME/post/database/gorm/news.go:18 Error 1146 (42S02): Table 'post.users' doesn't exist
+[70.614ms] [rows:0] INSERT INTO `users` (`name`,`password`) VALUES ('dqq','e10adc3949ba59abbe56e057f20f883e')
+
+2026/09/14 10:18:52 D:/go/GO_FRAME/post/database/gorm/user.go:18 Error 1146 (42S02): Table 'post.users' doesn't exist
+[1.845ms] [rows:0] INSERT INTO `users` (`name`,`password`) VALUES ('dqq','e10adc3949ba59abbe56e057f20f883e')
+
+2026/09/14 10:20:44 D:/go/GO_FRAME/post/database/gorm/user.go:18
+[122.510ms] [rows:1] INSERT INTO `user` (`name`,`password`) VALUES ('dqq','e10adc3949ba59abbe56e057f20f883e')
+
+2026/09/14 10:20:44 D:/go/GO_FRAME/post/database/gorm/user.go:18 Error 1062 (23000): Duplicate entry 'dqq' for key 'user.idx_name'
+[5.225ms] [rows:0] INSERT INTO `user` (`name`,`password`) VALUES ('dqq','e10adc3949ba59abbe56e057f20f883e')
+
+2026/09/14 10:26:08 D:/go/GO_FRAME/post/database/gorm/user.go:18 Error 1062 (23000): Duplicate entry 'dqq' for key 'user.idx_name'
+[2.658ms] [rows:0] INSERT INTO `user` (`name`,`password`) VALUES ('dqq','e10adc3949ba59abbe56e057f20f883e')

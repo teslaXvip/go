@@ -1,0 +1,2 @@
+time="2026-09-14 10:17:21.902" level=ERROR source=D:/go/GO_FRAME/post/database/gorm/news.go:26 msg=用户注册失败 name=dqq error="Error 1146 (42S02): Table 'post.users' doesn't exist"
+time="2026-09-14 10:18:52.721" level=ERROR source=D:/go/GO_FRAME/post/database/gorm/user.go:26 msg=用户注册失败 name=dqq error="Error 1146 (42S02): Table 'post.users' doesn't exist"

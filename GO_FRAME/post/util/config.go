@@ -7,6 +7,12 @@ import (
 	"github.com/spf13/viper"
 )
 
+const (
+	JSON = "json"
+	YAML = "yaml"
+	ENV  = "env"
+)
+
 func InitViper(dir, file, fileType string) *viper.Viper {
 	config := viper.New()
 	config.AddConfigPath(dir)
@@ -20,5 +26,3 @@ func InitViper(dir, file, fileType string) *viper.Viper {
 
 	return config
 }
-
-const YAML = "yaml"
