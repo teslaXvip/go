@@ -1,0 +1,3 @@
+DESC user;
+SHOW CREATE TABLE user;
+SELECT * FROM user;

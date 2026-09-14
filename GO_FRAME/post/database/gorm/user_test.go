@@ -46,3 +46,15 @@ func TestRegistUser(t *testing.T) {
 		fmt.Printf("注册失败: %s\n", err)
 	}
 }
+
+func TestLogOffUser(t *testing.T) {
+	err := database.LogOffUser(1)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	err = database.LogOffUser(1)
+	if err == nil {
+		t.Fatalf("用户%d第二次删除成功！", 1)
+	}
+}
