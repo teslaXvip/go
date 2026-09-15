@@ -33,13 +33,13 @@ func RegistUser(name, password string) (int, error) {
 
 // 注销用户
 func LogOffUser(uid int) error {
-	tx := PostDB.Delete(model.User{Id: uid})
-	if tx.Error != nil {
-		slog.Error("注销用户失败", "uid", uid, "error", tx.Error)
+	result := PostDB.Delete(model.User{Id: uid})
+	if result.Error != nil {
+		slog.Error("注销用户失败", "uid", uid, "error", result.Error)
 		return errors.New("用户注销失败，请稍后重试")
 	}
 
-	if tx.RowsAffected == 0 {
+	if result.RowsAffected == 0 {
 		return fmt.Errorf("用户注销失败,uid %d 不存在", uid)
 	}
 
@@ -47,12 +47,12 @@ func LogOffUser(uid int) error {
 }
 
 func UpdatePassword(uid int, oldPass, newPass string) error {
-	tx := PostDB.Model(&model.User{}).Where("id=? and password=?", uid, oldPass).Update("password", newPass)
-	if tx.Error != nil {
-		slog.Error("UpdatePassword failed", "uid", uid, "error", tx.Error)
+	result := PostDB.Model(&model.User{}).Where("id=? and password=?", uid, oldPass).Update("password", newPass)
+	if result.Error != nil {
+		slog.Error("UpdatePassword failed", "uid", uid, "error", result.Error)
 		return errors.New("密码修改失败，请稍后重试")
 	} else {
-		if tx.RowsAffected == 0 {
+		if result.RowsAffected == 0 {
 			return fmt.Errorf("用户id或旧密码不对")
 		}
 		return nil
@@ -61,10 +61,10 @@ func UpdatePassword(uid int, oldPass, newPass string) error {
 
 func GetUserById(uid int) *model.User {
 	user := model.User{Id: uid}
-	tx := PostDB.Select("*").First(&user)
-	if tx.Error != nil {
-		if !errors.Is(tx.Error, gorm.ErrRecordNotFound) {
-			slog.Error("GetUserById failed", "uid", uid, "error", tx.Error)
+	result := PostDB.Select("*").First(&user)
+	if result.Error != nil {
+		if !errors.Is(result.Error, gorm.ErrRecordNotFound) {
+			slog.Error("GetUserById failed", "uid", uid, "error", result.Error)
 		}
 		return nil
 	}
