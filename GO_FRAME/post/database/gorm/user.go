@@ -70,3 +70,15 @@ func GetUserById(uid int) *model.User {
 	}
 	return &user
 }
+
+func GetUserByName(name string) *model.User {
+	user := model.User{}
+	result := PostDB.Select("*").Where("name = ?", name).First(&user)
+	if result.Error != nil {
+		if !errors.Is(result.Error, gorm.ErrRecordNotFound) {
+			slog.Error("GetUserById failed", "uid", name, "error", result.Error)
+		}
+		return nil
+	}
+	return &user
+}
