@@ -1,8 +1,10 @@
 package handler
 
 import (
+	"log/slog"
 	"net/http"
 	"strconv"
+	"time"
 
 	"github.com/gin-gonic/gin"
 	database "github.com/teslaXvip/go/go_frame/post/database/gorm"
@@ -43,7 +45,35 @@ func Login(ctx *gin.Context) {
 		ctx.String(http.StatusBadRequest, "密码错误")
 		return
 	}
-	ctx.SetCookie("uid", strconv.Itoa(user2.Id), 86400, "/", "localhost", false, true)
+
+	// 登录成功，构造JWT
+	header := util.DefaultHeader // 工具包预先定义好默认JwtHeader: HS256,JWT
+	payload := util.JwtPayload{
+		Issue:      "news",
+		IssueAt:    time.Now().Unix(),                                //签发时间，每次登录时间不一样 → token每次不一样
+		Expiration: time.Now().Add(COOKIE_LIFE * time.Second).Unix(), //7天后过期
+		UserDefined: map[string]any{
+			UID_IN_TOKEN: user2.Id, //自定义字段，存放用户ID
+		},
+	}
+
+	// 生成JWT Token
+	if token, err := util.GenJWT(header, payload, KeyConfig.GetString("secret")); err != nil {
+		slog.Error("生成token失败", "error", err)
+		ctx.String(http.StatusInternalServerError, "token生成失败")
+	} else {
+		// Gin 设置Cookie，返回给浏览器 Set-Cookie响应头
+		ctx.SetCookie(
+			COOKIE_NAME, // cookie名称
+			token,       // cookie值：JWT字符串
+			COOKIE_LIFE, // maxAge 有效期秒数，>0代表多少秒后过期
+			"/",         // path: 整个网站路径都带上这个cookie
+			"localhost", // domain：仅localhost域名下携带cookie
+			false,       // secure：false http可访问；true仅https
+			true,        // HttpOnly: true，禁止JS读取/修改cookie，防XSS
+		)
+		ctx.String(http.StatusOK, "登录成功")
+	}
 }
 
 func Logout(ctx *gin.Context) {

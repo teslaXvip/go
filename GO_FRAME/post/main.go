@@ -38,7 +38,7 @@ func main() {
 
 	// POST接口路由：表单提交处理
 	engine.POST("/login/submit", handler.Login)
-	engine.POST("/modify_pass/submit", handler.UpdatePassword)
+	engine.POST("/modify_pass/submit", handler.Auth, handler.UpdatePassword)
 	engine.GET("/logout", handler.Logout)
 
 	engine.Run("localhost:5678")
