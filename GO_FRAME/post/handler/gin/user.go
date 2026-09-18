@@ -2,6 +2,7 @@ package handler
 
 import (
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 	database "github.com/teslaXvip/go/go_frame/post/database/gorm"
@@ -42,6 +43,11 @@ func Login(ctx *gin.Context) {
 		ctx.String(http.StatusBadRequest, "密码错误")
 		return
 	}
+	ctx.SetCookie("uid", strconv.Itoa(user2.Id), 86400, "/", "localhost", false, true)
+}
+
+func Logout(ctx *gin.Context) {
+	ctx.SetCookie("uid", "", -1, "/", "localhost", false, true)
 }
 
 func UpdatePassword(ctx *gin.Context) {
@@ -51,9 +57,28 @@ func UpdatePassword(ctx *gin.Context) {
 		ctx.String(http.StatusBadRequest, util.BindingErrMsg(err))
 		return
 	}
-	err = database.UpdatePassword(req.Uid, req.OldPass, req.NewPass)
+	uid := GetUidFromCookie(ctx)
+
+	if uid <= 0 {
+		ctx.String(http.StatusForbidden, "请先登陆")
+		return
+	}
+
+	err = database.UpdatePassword(uid, req.OldPass, req.NewPass)
 	if err != nil {
 		ctx.String(http.StatusBadRequest, err.Error())
 		return
 	}
+}
+
+func GetUidFromCookie(ctx *gin.Context) int {
+	for _, cookie := range ctx.Request.Cookies() {
+		if cookie.Name == "uid" {
+			uid, err := strconv.Atoi(cookie.Value)
+			if err == nil {
+				return uid
+			}
+		}
+	}
+	return 0
 }
