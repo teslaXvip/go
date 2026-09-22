@@ -4,18 +4,32 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/robfig/cron/v3"
 	database "github.com/teslaXvip/go/go_frame/post/database/gorm"
 	handler "github.com/teslaXvip/go/go_frame/post/handler/gin"
 	"github.com/teslaXvip/go/go_frame/post/util"
 )
 
-func Init() {
+func Init() *cron.Cron {
 	util.InitSlog("./log/post.log")
 	database.ConnectPostDB("./post/conf", "db", util.YAML, "./log")
+
+	crontab := cron.New()
+	// 定时表达式：30-50/5 * 1,4,8,10-20 1-6 *
+	// 任务：调用 database.PingPostDB
+	_, err := crontab.AddFunc("*/1 * * * *", database.PingPostDB)
+	if err != nil {
+		panic(err)
+	}
+
+	// 启动定时任务
+	crontab.Start()
+	return crontab
 }
 
 func main() {
-	Init()
+	crontab := Init()
+	defer crontab.Stop()
 
 	engine := gin.Default()
 

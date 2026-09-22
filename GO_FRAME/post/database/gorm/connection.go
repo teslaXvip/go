@@ -3,6 +3,7 @@ package database
 import (
 	"fmt"
 	"log"
+	"log/slog"
 	"os"
 	"path"
 	"time"
@@ -65,4 +66,12 @@ func ConnectPostDB(confDir, confFile, fileType, logDir string) {
 
 	// 赋值全局变量
 	PostDB = db
+}
+
+func PingPostDB() {
+	if PostDB != nil {
+		sqlDB, _ := PostDB.DB()
+		sqlDB.Ping()
+		slog.Info("ping post db")
+	}
 }

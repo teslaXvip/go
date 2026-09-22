@@ -108,3 +108,45 @@
 
 2026/09/22 16:15:02 D:/go/GO_FRAME/post/database/gorm/news.go:87
 [0.854ms] [rows:0] SELECT * FROM `news` WHERE delete_time is null ORDER BY create_time desc LIMIT 3
+
+2026/09/22 16:17:29 D:/go/GO_FRAME/post/database/gorm/news.go:80
+[0.669ms] [rows:1] SELECT count(*) FROM `news` WHERE delete_time is null
+
+2026/09/22 16:17:29 D:/go/GO_FRAME/post/database/gorm/news.go:87
+[0.482ms] [rows:0] SELECT * FROM `news` WHERE delete_time is null ORDER BY create_time desc LIMIT 3
+
+2026/09/22 16:17:33 D:/go/GO_FRAME/post/database/gorm/news.go:80
+[0.053ms] [rows:1] SELECT count(*) FROM `news` WHERE delete_time is null
+
+2026/09/22 16:17:33 D:/go/GO_FRAME/post/database/gorm/news.go:87
+[0.907ms] [rows:0] SELECT * FROM `news` WHERE delete_time is null ORDER BY create_time desc LIMIT 3
+
+2026/09/22 16:17:37 D:/go/GO_FRAME/post/database/gorm/news.go:80
+[0.222ms] [rows:1] SELECT count(*) FROM `news` WHERE delete_time is null
+
+2026/09/22 16:17:37 D:/go/GO_FRAME/post/database/gorm/news.go:87
+[0.729ms] [rows:0] SELECT * FROM `news` WHERE delete_time is null ORDER BY create_time desc LIMIT 3
+
+2026/09/22 16:17:39 D:/go/GO_FRAME/post/database/gorm/news.go:80
+[0.000ms] [rows:1] SELECT count(*) FROM `news` WHERE delete_time is null
+
+2026/09/22 16:17:39 D:/go/GO_FRAME/post/database/gorm/news.go:87
+[0.637ms] [rows:0] SELECT * FROM `news` WHERE delete_time is null ORDER BY create_time desc LIMIT 3
+
+2026/09/22 16:17:51 D:/go/GO_FRAME/post/database/gorm/news.go:80
+[0.663ms] [rows:1] SELECT count(*) FROM `news` WHERE delete_time is null
+
+2026/09/22 16:17:51 D:/go/GO_FRAME/post/database/gorm/news.go:87
+[0.614ms] [rows:0] SELECT * FROM `news` WHERE delete_time is null ORDER BY create_time desc LIMIT 3
+
+2026/09/22 16:17:54 D:/go/GO_FRAME/post/database/gorm/news.go:80
+[0.000ms] [rows:1] SELECT count(*) FROM `news` WHERE delete_time is null
+
+2026/09/22 16:17:54 D:/go/GO_FRAME/post/database/gorm/news.go:87
+[0.098ms] [rows:0] SELECT * FROM `news` WHERE delete_time is null ORDER BY create_time desc LIMIT 3
+
+2026/09/22 16:17:58 D:/go/GO_FRAME/post/database/gorm/news.go:80
+[0.629ms] [rows:1] SELECT count(*) FROM `news` WHERE delete_time is null
+
+2026/09/22 16:17:58 D:/go/GO_FRAME/post/database/gorm/news.go:87
+[0.515ms] [rows:0] SELECT * FROM `news` WHERE delete_time is null ORDER BY create_time desc LIMIT 3
