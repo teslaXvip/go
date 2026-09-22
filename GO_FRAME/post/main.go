@@ -8,6 +8,7 @@ import (
 	"syscall"
 
 	"github.com/gin-gonic/gin"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/robfig/cron/v3"
 	database "github.com/teslaXvip/go/go_frame/post/database/gorm"
 	handler "github.com/teslaXvip/go/go_frame/post/handler/gin"
@@ -55,6 +56,12 @@ func main() {
 
 	// 加载html模板
 	engine.LoadHTMLGlob("post/views/html/*")
+
+	engine.Use(handler.Metric()) // 全局中间件, 上报每一个接口的耗时和调用次数
+
+	engine.GET("/metrics", func(ctx *gin.Context) { //Prometheus要来访问这个接口
+		promhttp.Handler().ServeHTTP(ctx.Writer, ctx.Request)
+	})
 
 	// GET页面路由：访问页面
 	engine.GET("/login", func(ctx *gin.Context) {
