@@ -1,7 +1,11 @@
 package main
 
 import (
+	"log/slog"
 	"net/http"
+	"os"
+	"os/signal"
+	"syscall"
 
 	"github.com/gin-gonic/gin"
 	"github.com/robfig/cron/v3"
@@ -27,9 +31,20 @@ func Init() *cron.Cron {
 	return crontab
 }
 
+func ListenTermSignal() {
+	c := make(chan os.Signal, 1)
+	signal.Notify(c, syscall.SIGINT, syscall.SIGTERM)
+	sig := <-c
+	slog.Info("receive signal" + sig.String() + ", going to exit")
+	database.ClosePostDb()
+	os.Exit(0)
+}
+
 func main() {
 	crontab := Init()
 	defer crontab.Stop()
+
+	go ListenTermSignal()
 
 	engine := gin.Default()
 

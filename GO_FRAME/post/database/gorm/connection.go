@@ -75,3 +75,10 @@ func PingPostDB() {
 		slog.Info("ping post db")
 	}
 }
+
+func ClosePostDb() {
+	if PostDB != nil {
+		sqlDb, _ := PostDB.DB()
+		sqlDb.Close()
+	}
+}
