@@ -1,6 +1,8 @@
 package main
 
 import (
+	"net/http"
+
 	"github.com/gin-gonic/gin"
 	database "github.com/teslaXvip/go/go_frame/post/database/gorm"
 	handler "github.com/teslaXvip/go/go_frame/post/handler/gin"
@@ -40,6 +42,17 @@ func main() {
 	engine.POST("/login/submit", handler.Login)
 	engine.POST("/modify_pass/submit", handler.Auth, handler.UpdatePassword)
 	engine.GET("/logout", handler.Logout)
+
+	group := engine.Group("/news")
+	group.GET("", handler.NewsList)
+	group.GET("/issue", func(ctx *gin.Context) { ctx.HTML(http.StatusOK, "news_issue.html", nil) })
+	group.POST("/issue/submit", handler.Auth, handler.PostNews)
+	group.GET("/belong", handler.NewsBelong)
+	group.GET("/:id", handler.GetNewsById)
+	group.GET("/delete/:id", handler.Auth, handler.DeleteNews)
+	group.POST("/update", handler.Auth, handler.UpdateNews)
+
+	engine.GET("", func(ctx *gin.Context) { ctx.Redirect(http.StatusMovedPermanently, "news") }) //新闻列表页是默认的首页
 
 	engine.Run("localhost:5678")
 }
