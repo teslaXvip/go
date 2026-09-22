@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>修改密码 - News</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <nav class="nav">
+      <a class="brand" href="/news">News</a>
+      <div class="nav-links">
+        <a href="/news">首页</a>
+        <a href="/news/issue">发布新闻</a>
+        <a href="/modify_pass">修改密码</a>
+        <a href="/logout">退出登录</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container page">
+    <div class="auth-wrap">
+      <div class="card">
+        <h1 class="card-title">修改密码</h1>
+        <p class="card-desc">修改成功后需重新登录</p>
+        <form id="passForm" autocomplete="off">
+          <div class="field">
+            <label for="oldPass">原密码</label>
+            <input class="input" type="password" id="oldPass" name="old_pass" placeholder="请输入原密码" maxlength="32" required>
+          </div>
+          <div class="field">
+            <label for="newPass">新密码</label>
+            <input class="input" type="password" id="newPass" name="new_pass" placeholder="至少 6 位" maxlength="32" required>
+          </div>
+          <div class="field">
+            <label for="newPass2">确认新密码</label>
+            <input class="input" type="password" id="newPass2" placeholder="请再次输入新密码" maxlength="32" required>
+          </div>
+          <div class="form-actions">
+            <button class="btn" type="submit" id="submitBtn">确认修改</button>
+          </div>
+        </form>
+        <p class="form-foot">
+          <a href="/news">返回首页</a>
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <script src="/js/md5.js"></script>
+  <script src="/js/common.js"></script>
+  <script>
+    (function () {
+      var form = document.getElementById('passForm');
+      var btn = document.getElementById('submitBtn');
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var oldPass = document.getElementById('oldPass').value;
+        var newPass = document.getElementById('newPass').value;
+        var newPass2 = document.getElementById('newPass2').value;
+
+        if (!oldPass) { showToast('请输入原密码', 'error'); return; }
+        if (newPass.length < 6) { showToast('新密码至少 6 位', 'error'); return; }
+        if (newPass !== newPass2) { showToast('两次输入的新密码不一致', 'error'); return; }
+
+        var body = new URLSearchParams();
+        body.append('old_pass', md5(oldPass));
+        body.append('new_pass', md5(newPass));
+
+        btn.disabled = true;
+        fetch('/modify_pass/submit', {
+          method: 'POST',
+          body: body,
+          credentials: 'same-origin'
+        }).then(function (r) {
+          return r.text().then(function (t) { return { ok: r.ok, text: t }; });
+        }).then(function (res) {
+          if (res.ok) {
+            showToast('密码修改成功，请重新登录');
+            fetch('/logout', { credentials: 'same-origin' }).then(function () {
+              setTimeout(function () { location.href = '/login?updated=1'; }, 600);
+            });
+          } else {
+            btn.disabled = false;
+            showToast(res.text || '修改失败', 'error');
+          }
+        }).catch(function () {
+          btn.disabled = false;
+          showToast('网络异常，请稍后重试', 'error');
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>登录 - News</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <nav class="nav">
+      <a class="brand" href="/news">News</a>
+      <div class="nav-links">
+        <a href="/news">首页</a>
+        <a href="/regist">注册</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container page">
+    <div class="auth-wrap">
+      <div class="card">
+        <h1 class="card-title">登录</h1>
+        <p class="card-desc">登录后可发布新闻，畅享全部功能</p>
+        <form id="loginForm" autocomplete="off">
+          <div class="field">
+            <label for="name">用户名</label>
+            <input class="input" type="text" id="name" name="name" placeholder="请输入用户名" maxlength="20" required>
+          </div>
+          <div class="field">
+            <label for="pass">密码</label>
+            <input class="input" type="password" id="pass" name="pass" placeholder="请输入密码" maxlength="32" required>
+          </div>
+          <div class="form-actions">
+            <button class="btn" type="submit" id="submitBtn">登 录</button>
+          </div>
+        </form>
+        <p class="form-foot">
+          还没有账号？<a href="/regist">立即注册</a>
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <script src="/js/md5.js"></script>
+  <script src="/js/common.js"></script>
+  <script>
+    (function () {
+      var form = document.getElementById('loginForm');
+      var btn = document.getElementById('submitBtn');
+
+      if (new URLSearchParams(location.search).get('regist') === '1') {
+        showToast('注册成功，请登录');
+      }
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var name = document.getElementById('name').value.trim();
+        var pass = document.getElementById('pass').value;
+        if (name.length < 2) { showToast('用户名至少 2 个字符', 'error'); return; }
+        if (!pass) { showToast('请输入密码', 'error'); return; }
+
+        var body = new URLSearchParams();
+        body.append('name', name);
+        body.append('pass', md5(pass));
+
+        btn.disabled = true;
+        fetch('/login/submit', {
+          method: 'POST',
+          body: body,
+          credentials: 'same-origin'
+        }).then(function (r) {
+          return r.text().then(function (t) { return { ok: r.ok, text: t }; });
+        }).then(function (res) {
+          if (res.ok) {
+            showToast('登录成功');
+            setTimeout(function () { location.href = '/news'; }, 500);
+          } else {
+            btn.disabled = false;
+            showToast(res.text || '登录失败', 'error');
+          }
+        }).catch(function () {
+          btn.disabled = false;
+          showToast('网络异常，请稍后重试', 'error');
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

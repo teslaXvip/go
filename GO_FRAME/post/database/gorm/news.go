@@ -67,7 +67,7 @@ func GetNewsById(id int) *model.News {
 		}
 		return nil
 	}
-	if news != nil {
+	if news.PostTime != nil {
 		news.ViewPostTime = news.PostTime.Format("2006-01-02 15:04:05")
 	}
 	// 数据库层所有的逻辑都是单表查询

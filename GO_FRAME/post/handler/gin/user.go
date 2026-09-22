@@ -41,7 +41,7 @@ func Login(ctx *gin.Context) {
 		return
 	}
 
-	if user2.PassWord == user.PassWord {
+	if user2.PassWord != user.PassWord {
 		ctx.String(http.StatusBadRequest, "密码错误")
 		return
 	}

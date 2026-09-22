@@ -19,3 +19,92 @@
 
 2026/09/14 11:10:02 D:/go/GO_FRAME/post/database/gorm/user.go:36
 [0.000ms] [rows:0] DELETE FROM `user` WHERE `user`.`id` = 1
+
+2026/09/22 16:01:55 D:/go/GO_FRAME/post/database/gorm/user.go:19
+[69.961ms] [rows:1] INSERT INTO `user` (`name`,`password`) VALUES ('e2e_user_0922','c6154c9285ffe06020432d441676c3c8')
+
+2026/09/22 16:02:06 D:/go/GO_FRAME/post/database/gorm/user.go:76
+[7.652ms] [rows:1] SELECT * FROM `user` WHERE name = 'e2e_user_0922' ORDER BY `user`.`id` LIMIT 1
+
+2026/09/22 16:05:23 D:/go/GO_FRAME/post/database/gorm/user.go:76
+[0.512ms] [rows:1] SELECT * FROM `user` WHERE name = 'e2e_user_0922' ORDER BY `user`.`id` LIMIT 1
+
+2026/09/22 16:13:27 D:/go/GO_FRAME/post/database/gorm/user.go:76
+[1.399ms] [rows:1] SELECT * FROM `user` WHERE name = 'e2e_user_0922' ORDER BY `user`.`id` LIMIT 1
+
+2026/09/22 16:13:27 D:/go/GO_FRAME/post/database/gorm/news.go:80
+[9.897ms] [rows:1] SELECT count(*) FROM `news` WHERE delete_time is null
+
+2026/09/22 16:13:27 D:/go/GO_FRAME/post/database/gorm/news.go:87
+[0.562ms] [rows:0] SELECT * FROM `news` WHERE delete_time is null ORDER BY create_time desc LIMIT 3
+
+2026/09/22 16:13:54 D:/go/GO_FRAME/post/database/gorm/news.go:23
+[1.966ms] [rows:1] INSERT INTO `news` (`user_id`,`title`,`article`,`create_time`,`delete_time`) VALUES (4,'E2E 联调测试新闻','这是一篇端到端联调发布的测试新闻，用于验证完整流程。
+第二行内容。
+
+希望一切顺利！','2026-09-22 16:13:54.514',NULL)
+
+2026/09/22 16:13:55 D:/go/GO_FRAME/post/database/gorm/news.go:62
+[0.000ms] [rows:1] SELECT * FROM `news` WHERE delete_time is null AND `news`.`id` = 1 ORDER BY `news`.`id` LIMIT 1
+
+2026/09/22 16:13:55 D:/go/GO_FRAME/post/database/gorm/user.go:64
+[0.433ms] [rows:1] SELECT * FROM `user` WHERE `user`.`id` = 4 ORDER BY `user`.`id` LIMIT 1
+
+2026/09/22 16:13:55 D:/go/GO_FRAME/post/database/gorm/news.go:62
+[0.611ms] [rows:1] SELECT * FROM `news` WHERE delete_time is null AND `news`.`id` = 1 ORDER BY `news`.`id` LIMIT 1
+
+2026/09/22 16:14:08 D:/go/GO_FRAME/post/database/gorm/news.go:62
+[0.778ms] [rows:1] SELECT * FROM `news` WHERE delete_time is null AND `news`.`id` = 1 ORDER BY `news`.`id` LIMIT 1
+
+2026/09/22 16:14:08 D:/go/GO_FRAME/post/database/gorm/user.go:64
+[0.000ms] [rows:1] SELECT * FROM `user` WHERE `user`.`id` = 4 ORDER BY `user`.`id` LIMIT 1
+
+2026/09/22 16:14:21 D:/go/GO_FRAME/post/database/gorm/news.go:62
+[0.601ms] [rows:1] SELECT * FROM `news` WHERE delete_time is null AND `news`.`id` = 1 ORDER BY `news`.`id` LIMIT 1
+
+2026/09/22 16:14:21 D:/go/GO_FRAME/post/database/gorm/news.go:47
+[39.263ms] [rows:1] UPDATE `news` SET `article`='这是一篇端到端联调发布的测试新闻，用于验证完整流程。
+第二行内容。
+
+希望一切顺利！
+
+【编辑后追加】修改密码流程也验证一下。',`title`='E2E 联调测试新闻（已编辑）' WHERE id=1 and delete_time is null
+
+2026/09/22 16:14:21 D:/go/GO_FRAME/post/database/gorm/news.go:62
+[0.000ms] [rows:1] SELECT * FROM `news` WHERE delete_time is null AND `news`.`id` = 1 ORDER BY `news`.`id` LIMIT 1
+
+2026/09/22 16:14:21 D:/go/GO_FRAME/post/database/gorm/user.go:64
+[0.582ms] [rows:1] SELECT * FROM `user` WHERE `user`.`id` = 4 ORDER BY `user`.`id` LIMIT 1
+
+2026/09/22 16:14:21 D:/go/GO_FRAME/post/database/gorm/news.go:62
+[0.503ms] [rows:1] SELECT * FROM `news` WHERE delete_time is null AND `news`.`id` = 1 ORDER BY `news`.`id` LIMIT 1
+
+2026/09/22 16:14:34 D:/go/GO_FRAME/post/database/gorm/news.go:80
+[0.607ms] [rows:1] SELECT count(*) FROM `news` WHERE delete_time is null
+
+2026/09/22 16:14:34 D:/go/GO_FRAME/post/database/gorm/news.go:87
+[0.000ms] [rows:1] SELECT * FROM `news` WHERE delete_time is null ORDER BY create_time desc LIMIT 3
+
+2026/09/22 16:14:34 D:/go/GO_FRAME/post/database/gorm/user.go:64
+[0.588ms] [rows:1] SELECT * FROM `user` WHERE `user`.`id` = 4 ORDER BY `user`.`id` LIMIT 1
+
+2026/09/22 16:14:46 D:/go/GO_FRAME/post/database/gorm/news.go:62
+[0.504ms] [rows:1] SELECT * FROM `news` WHERE delete_time is null AND `news`.`id` = 1 ORDER BY `news`.`id` LIMIT 1
+
+2026/09/22 16:14:46 D:/go/GO_FRAME/post/database/gorm/user.go:64
+[0.093ms] [rows:1] SELECT * FROM `user` WHERE `user`.`id` = 4 ORDER BY `user`.`id` LIMIT 1
+
+2026/09/22 16:14:46 D:/go/GO_FRAME/post/database/gorm/news.go:62
+[0.582ms] [rows:1] SELECT * FROM `news` WHERE delete_time is null AND `news`.`id` = 1 ORDER BY `news`.`id` LIMIT 1
+
+2026/09/22 16:15:01 D:/go/GO_FRAME/post/database/gorm/news.go:62
+[0.529ms] [rows:1] SELECT * FROM `news` WHERE delete_time is null AND `news`.`id` = 1 ORDER BY `news`.`id` LIMIT 1
+
+2026/09/22 16:15:01 D:/go/GO_FRAME/post/database/gorm/news.go:32
+[4.529ms] [rows:1] UPDATE `news` SET `delete_time`='2026-09-22 16:15:01.953' WHERE id = 1 and delete_time is null
+
+2026/09/22 16:15:02 D:/go/GO_FRAME/post/database/gorm/news.go:80
+[0.000ms] [rows:1] SELECT count(*) FROM `news` WHERE delete_time is null
+
+2026/09/22 16:15:02 D:/go/GO_FRAME/post/database/gorm/news.go:87
+[0.854ms] [rows:0] SELECT * FROM `news` WHERE delete_time is null ORDER BY create_time desc LIMIT 3

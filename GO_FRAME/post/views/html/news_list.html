@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>新闻列表 - News</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <nav class="nav">
+      <a class="brand" href="/news">News</a>
+      <div class="nav-links">
+        <a href="/news">首页</a>
+        <a href="/news/issue">发布新闻</a>
+        <a href="/modify_pass">修改密码</a>
+        <a href="/logout">退出登录</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container page">
+    <div class="page-head">
+      <div>
+        <h1 class="page-title">最新新闻</h1>
+        <p class="page-sub">共 {{.total}} 篇</p>
+      </div>
+      <a class="btn" href="/news/issue">发布新闻</a>
+    </div>
+
+    {{if .data}}
+    <div class="news-list">
+      {{range .data}}
+      <a class="news-item" href="/news/{{.Id}}">
+        <h2 class="news-item-title">{{.Title}}</h2>
+        <div class="news-item-meta">
+          <span>{{.UserName}}</span>
+          <span>·</span>
+          <span>{{.ViewPostTime}}</span>
+        </div>
+        <p class="news-item-excerpt">{{.Content}}</p>
+      </a>
+      {{end}}
+    </div>
+    <nav class="pagination" id="pagination" data-total="{{.total}}" data-page="{{.page}}"></nav>
+    {{else}}
+    <div class="empty">
+      <p class="empty-title">暂无新闻</p>
+      <p>点击右上角「发布新闻」，写下第一篇吧</p>
+    </div>
+    {{end}}
+  </main>
+
+  <script src="/js/common.js"></script>
+  <script>
+    (function () {
+      var el = document.getElementById('pagination');
+      if (!el) return;
+      var total = parseInt(el.dataset.total || '0', 10);
+      var page = parseInt(el.dataset.page || '1', 10);
+      var pageSize = 3;
+      var pages = Math.ceil(total / pageSize);
+      if (pages <= 1) return;
+
+      var q = new URLSearchParams(location.search);
+      if (q.get('page_size')) pageSize = parseInt(q.get('page_size'), 10);
+
+      function link(p, label, disabled) {
+        if (disabled) return '<span class="page-btn disabled">' + label + '</span>';
+        return '<a class="page-btn' + (p === page ? ' active' : '') + '" href="/news?page_no=' + p + '&page_size=' + pageSize + '">' + label + '</a>';
+      }
+
+      var html = link(page - 1, '上一页', page <= 1);
+      var start = Math.max(1, page - 2);
+      var end = Math.min(pages, page + 2);
+      for (var p = start; p <= end; p++) {
+        html += link(p, p, false);
+      }
+      html += link(page + 1, '下一页', page >= pages);
+      el.innerHTML = html;
+    })();
+  </script>
+</body>
+</html>

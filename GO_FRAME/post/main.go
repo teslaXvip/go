@@ -39,6 +39,7 @@ func main() {
 	})
 
 	// POST接口路由：表单提交处理
+	engine.POST("/regist/submit", handler.RegistUser)
 	engine.POST("/login/submit", handler.Login)
 	engine.POST("/modify_pass/submit", handler.Auth, handler.UpdatePassword)
 	engine.GET("/logout", handler.Logout)
@@ -48,6 +49,7 @@ func main() {
 	group.GET("/issue", func(ctx *gin.Context) { ctx.HTML(http.StatusOK, "news_issue.html", nil) })
 	group.POST("/issue/submit", handler.Auth, handler.PostNews)
 	group.GET("/belong", handler.NewsBelong)
+	group.GET("/edit/:id", handler.Auth, handler.EditNewsPage)
 	group.GET("/:id", handler.GetNewsById)
 	group.GET("/delete/:id", handler.Auth, handler.DeleteNews)
 	group.POST("/update", handler.Auth, handler.UpdateNews)

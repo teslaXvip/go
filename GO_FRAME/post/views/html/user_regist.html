@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>注册 - News</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <nav class="nav">
+      <a class="brand" href="/news">News</a>
+      <div class="nav-links">
+        <a href="/news">首页</a>
+        <a href="/login">登录</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container page">
+    <div class="auth-wrap">
+      <div class="card">
+        <h1 class="card-title">注册</h1>
+        <p class="card-desc">创建一个新账号，立即开始发布新闻</p>
+        <form id="registForm" autocomplete="off">
+          <div class="field">
+            <label for="name">用户名</label>
+            <input class="input" type="text" id="name" name="name" placeholder="至少 2 个字符" maxlength="20" required>
+          </div>
+          <div class="field">
+            <label for="pass">密码</label>
+            <input class="input" type="password" id="pass" name="pass" placeholder="至少 6 位" maxlength="32" required>
+          </div>
+          <div class="field">
+            <label for="pass2">确认密码</label>
+            <input class="input" type="password" id="pass2" placeholder="请再次输入密码" maxlength="32" required>
+          </div>
+          <div class="form-actions">
+            <button class="btn" type="submit" id="submitBtn">注 册</button>
+          </div>
+        </form>
+        <p class="form-foot">
+          已有账号？<a href="/login">去登录</a>
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <script src="/js/md5.js"></script>
+  <script src="/js/common.js"></script>
+  <script>
+    (function () {
+      var form = document.getElementById('registForm');
+      var btn = document.getElementById('submitBtn');
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var name = document.getElementById('name').value.trim();
+        var pass = document.getElementById('pass').value;
+        var pass2 = document.getElementById('pass2').value;
+
+        if (name.length < 2) { showToast('用户名至少 2 个字符', 'error'); return; }
+        if (pass.length < 6) { showToast('密码至少 6 位', 'error'); return; }
+        if (pass !== pass2) { showToast('两次输入的密码不一致', 'error'); return; }
+
+        var body = new URLSearchParams();
+        body.append('name', name);
+        body.append('pass', md5(pass));
+
+        btn.disabled = true;
+        fetch('/regist/submit', {
+          method: 'POST',
+          body: body,
+          credentials: 'same-origin'
+        }).then(function (r) {
+          return r.text().then(function (t) { return { ok: r.ok, text: t }; });
+        }).then(function (res) {
+          if (res.ok) {
+            location.href = '/login?regist=1';
+          } else {
+            btn.disabled = false;
+            showToast(res.text || '注册失败', 'error');
+          }
+        }).catch(function () {
+          btn.disabled = false;
+          showToast('网络异常，请稍后重试', 'error');
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

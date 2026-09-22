@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>发布新闻 - News</title>
+  <title>编辑新闻 - News</title>
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
@@ -22,20 +22,21 @@
   <main class="container page">
     <div class="auth-wrap">
       <div class="card">
-        <h1 class="card-title">发布新闻</h1>
-        <p class="card-desc">分享你身边的新鲜事</p>
-        <form id="issueForm" autocomplete="off">
+        <h1 class="card-title">编辑新闻</h1>
+        <p class="card-desc">修改后将立即生效</p>
+        <form id="editForm" autocomplete="off">
+          <input type="hidden" id="id" value="{{.Id}}">
           <div class="field">
             <label for="title">标题</label>
-            <input class="input" type="text" id="title" name="title" placeholder="请输入新闻标题" maxlength="100" required>
+            <input class="input" type="text" id="title" value="{{.Title}}" maxlength="100" required>
           </div>
           <div class="field">
             <label for="content">正文</label>
-            <textarea class="input" id="content" name="content" placeholder="请输入新闻正文" required></textarea>
+            <textarea class="input" id="content" required>{{.Content}}</textarea>
           </div>
           <div class="form-actions">
-            <button class="btn" type="submit" id="submitBtn">发 布</button>
-            <a class="btn btn-secondary" href="/news">取 消</a>
+            <button class="btn" type="submit" id="submitBtn">保 存</button>
+            <a class="btn btn-secondary" href="/news/{{.Id}}">取 消</a>
           </div>
         </form>
       </div>
@@ -45,8 +46,9 @@
   <script src="/js/common.js"></script>
   <script>
     (function () {
-      var form = document.getElementById('issueForm');
+      var form = document.getElementById('editForm');
       var btn = document.getElementById('submitBtn');
+      var id = document.getElementById('id').value;
 
       form.addEventListener('submit', function (e) {
         e.preventDefault();
@@ -56,27 +58,24 @@
         if (!content) { showToast('请输入正文', 'error'); return; }
 
         var body = new URLSearchParams();
+        body.append('id', id);
         body.append('title', title);
         body.append('content', content);
 
         btn.disabled = true;
-        fetch('/news/issue/submit', {
+        fetch('/news/update', {
           method: 'POST',
           body: body,
           credentials: 'same-origin'
         }).then(function (r) {
-          return r.text().then(function (t) {
-            var data = null;
-            try { data = JSON.parse(t); } catch (err) {}
-            return { ok: r.ok, data: data, text: t };
-          });
+          return r.text().then(function (t) { return { ok: r.ok, text: t }; });
         }).then(function (res) {
-          if (res.ok && res.data && res.data.id) {
-            showToast('发布成功');
-            setTimeout(function () { location.href = '/news/' + res.data.id; }, 500);
+          if (res.ok) {
+            showToast('保存成功');
+            setTimeout(function () { location.href = '/news/' + id; }, 500);
           } else {
             btn.disabled = false;
-            showToast(res.text || '发布失败', 'error');
+            showToast(res.text || '保存失败', 'error');
           }
         }).catch(function () {
           btn.disabled = false;

@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{.Title}} - News</title>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <nav class="nav">
+        <a class="brand" href="/news">News</a>
+        <div class="nav-links">
+          <a href="/news">首页</a>
+          <a href="/news/issue">发布新闻</a>
+          <a href="/modify_pass">修改密码</a>
+          <a href="/logout">退出登录</a>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container page">
+      <article class="article-card">
+        <h1 class="article-title">{{.Title}}</h1>
+        <div class="article-meta">
+          <span>{{.UserName}}</span>
+          <span>·</span>
+          <span>{{.ViewPostTime}}</span>
+        </div>
+        <div class="article-content">{{.Content}}</div>
+        <div class="article-actions">
+          <a class="btn btn-secondary" href="/news">返回列表</a>
+          <a class="btn" id="editBtn" href="/news/edit/{{.Id}}" style="display: none">编辑</a>
+          <button class="btn btn-danger" id="deleteBtn" data-id="{{.Id}}" style="display: none">删除此新闻</button>
+        </div>
+      </article>
+    </main>
+
+    <script src="/js/common.js"></script>
+    <script>
+      ;(function () {
+        var btn = document.getElementById('deleteBtn')
+        if (!btn) return
+        var id = btn.dataset.id
+
+        // 仅当当前登录用户是该新闻作者时显示编辑/删除按钮
+        fetch('/news/belong?id=' + id, { credentials: 'same-origin' })
+          .then(function (r) {
+            return r.text()
+          })
+          .then(function (t) {
+            if (t.trim() === 'true') {
+              btn.style.display = ''
+              var editBtn = document.getElementById('editBtn')
+              if (editBtn) editBtn.style.display = ''
+            }
+          })
+          .catch(function () {})
+
+        btn.addEventListener('click', function () {
+          if (!confirm('确定要删除这篇新闻吗？删除后不可恢复。')) return
+          btn.disabled = true
+          fetch('/news/delete/' + id, { credentials: 'same-origin' })
+            .then(function (r) {
+              if (r.ok) {
+                showToast('删除成功')
+                setTimeout(function () {
+                  location.href = '/news'
+                }, 500)
+              } else {
+                return r.text()
+              }
+            })
+            .then(function (msg) {
+              if (msg) {
+                btn.disabled = false
+                showToast(msg, 'error')
+              }
+            })
+            .catch(function () {
+              btn.disabled = false
+              showToast('网络异常，请稍后重试', 'error')
+            })
+        })
+      })()
+    </script>
+  </body>
+</html>

@@ -51,6 +51,28 @@ func GetNewsById(ctx *gin.Context) {
 	}
 }
 
+// 编辑新闻页
+func EditNewsPage(ctx *gin.Context) {
+	idStr := ctx.Param("id")
+	if id, err := strconv.Atoi(idStr); err != nil || id <= 0 {
+		ctx.String(http.StatusBadRequest, "非法的新闻id")
+		return
+	} else {
+		news := database.GetNewsById(id)
+		if news == nil {
+			ctx.Status(http.StatusNotFound)
+			return
+		}
+
+		user := database.GetUserById(news.UserId)
+		if user != nil {
+			news.UserName = user.Name
+		}
+		ctx.HTML(http.StatusOK, "news_edit.html", news)
+		return
+	}
+}
+
 // 删除新闻
 func DeleteNews(ctx *gin.Context) {
 	loginUid := ctx.Value(UID_IN_CTX).(int)
