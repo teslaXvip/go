@@ -12,6 +12,7 @@ require (
 )
 
 require (
+	buf.build/go/interrupt v1.1.0 // indirect
 	filippo.io/edwards25519 v1.2.0 // indirect
 	github.com/BurntSushi/toml v1.6.0 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
@@ -19,7 +20,13 @@ require (
 	github.com/bytedance/sonic v1.15.0 // indirect
 	github.com/bytedance/sonic/loader v0.5.0 // indirect
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
+	github.com/clipperhouse/uax29/v2 v2.2.0 // indirect
 	github.com/cloudwego/base64x v0.1.6 // indirect
+	github.com/desertbit/closer/v4 v4.0.2 // indirect
+	github.com/desertbit/columnize v2.1.0+incompatible // indirect
+	github.com/desertbit/go-shlex v0.1.1 // indirect
+	github.com/desertbit/readline v1.5.1 // indirect
+	github.com/fatih/color v1.19.0 // indirect
 	github.com/fsnotify/fsnotify v1.9.0 // indirect
 	github.com/gabriel-vasile/mimetype v1.4.12 // indirect
 	github.com/gin-contrib/sse v1.1.0 // indirect
@@ -42,6 +49,7 @@ require (
 	github.com/lestrrat-go/strftime v1.2.0 // indirect
 	github.com/mattn/go-colorable v0.1.16 // indirect
 	github.com/mattn/go-isatty v0.0.24 // indirect
+	github.com/mattn/go-runewidth v0.0.19 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/molecule-man/go-brrr v1.2.0 // indirect
@@ -85,11 +93,14 @@ replace github.com/teslaXvip/go/go_frame => .
 replace github.com/teslaXvip/go => .
 
 require (
+	buf.build/go/app v0.3.0
+	github.com/desertbit/grumble v1.3.1
 	github.com/gin-gonic/gin v1.12.0
 	github.com/gofiber/fiber/v3 v3.6.0
 	github.com/gorilla/websocket v1.5.3
 	github.com/lestrrat-go/file-rotatelogs v2.4.0+incompatible
 	github.com/natefinch/lumberjack v2.0.0+incompatible
+	github.com/nsf/termbox-go v1.1.2
 	github.com/prometheus/client_golang v1.24.1
 	github.com/rabbitmq/amqp091-go v1.16.0
 	github.com/redis/go-redis/v9 v9.22.0
