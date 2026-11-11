@@ -5,6 +5,7 @@ go 1.26.2
 require (
 	github.com/go-playground/validator/v10 v10.30.1
 	github.com/go-sql-driver/mysql v1.10.1
+	github.com/segmentio/kafka-go v0.4.51
 	github.com/sirupsen/logrus v1.10.2
 	github.com/spf13/viper v1.21.0
 	gorm.io/driver/mysql v1.6.0
@@ -12,7 +13,6 @@ require (
 )
 
 require (
-	buf.build/go/interrupt v1.1.0 // indirect
 	filippo.io/edwards25519 v1.2.0 // indirect
 	github.com/BurntSushi/toml v1.6.0 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
@@ -56,6 +56,7 @@ require (
 	github.com/munnerz/goautoneg v0.0.0-20191010083416-a7dc8b61c822 // indirect
 	github.com/pelletier/go-toml/v2 v2.2.4 // indirect
 	github.com/philhofer/fwd v1.2.0 // indirect
+	github.com/pierrec/lz4/v4 v4.1.15 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/prometheus/client_model v0.6.2 // indirect
 	github.com/prometheus/common v0.70.1 // indirect
@@ -93,7 +94,6 @@ replace github.com/teslaXvip/go/go_frame => .
 replace github.com/teslaXvip/go => .
 
 require (
-	buf.build/go/app v0.3.0
 	github.com/desertbit/grumble v1.3.1
 	github.com/gin-gonic/gin v1.12.0
 	github.com/gofiber/fiber/v3 v3.6.0
@@ -105,7 +105,6 @@ require (
 	github.com/rabbitmq/amqp091-go v1.16.0
 	github.com/redis/go-redis/v9 v9.22.0
 	github.com/robfig/cron/v3 v3.0.1
-	github.com/rs/xid v1.6.0
 	go.uber.org/zap v1.28.0
 	golang.org/x/sys v0.49.0 // indirect
 	xorm.io/xorm v1.4.1
